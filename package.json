@@ -1,0 +1,46 @@
+{
+  "name": "prime-barnacle",
+  "version": "0.1.0",
+  "description": "A client hiding network issues for connecting with an object event backend.",
+  "keywords": [],
+  "author": "Axel",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axelkr/prime-barnacle.git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist/*.js",
+    "/dist/*.d.ts"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "test": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json",
+    "testCLI": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json --junitreport",
+    "lint": "eslint src/ --ext .ts"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^5.4.1",
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "chai": "^4.3.0",
+    "eslint": "^7.20.0",
+    "jasmine": "^3.6.4",
+    "jasmine-spec-reporter": "^6.0.0",
+    "jasmine-xml-reporter": "^1.2.1",
+    "rollup": "^2.39.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5",
+    "happy-barnacle": "^2.1.2"
+  },
+  "dependencies": {
+    "sitka": "^1.0.5"
+  }
+}
