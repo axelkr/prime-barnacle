@@ -1,22 +1,27 @@
-import { Logger } from 'sitka';
 import { Observable, Subject } from 'rxjs';
 import { ObjectEvent } from 'happy-barnacle';
+import { PublishObjectEventRequest } from './PublishObjectEventRequest';
+import { SwitchToTopicRequest } from './SwitchToTopicRequest';
+import { RequestProcessor } from './RequestProcessor';
 
 export class Client {
-    private logger: Logger;
     public readonly publishedObjectEvents: Observable<ObjectEvent>;
-    private readonly objectEventSubject: Subject<ObjectEvent>; 
-    private readonly endpoint:string;
+    private readonly objectEventSubject: Subject<ObjectEvent>;
+    private readonly processor: RequestProcessor;
 
     constructor(endpoint: string) {
-        this.logger = Logger.getLogger({ name: this.constructor.name });
         this.objectEventSubject = new Subject<ObjectEvent>();
         this.publishedObjectEvents = this.objectEventSubject;
-        this.endpoint = endpoint;
+        this.processor = new RequestProcessor(this.objectEventSubject, endpoint);
     }
 
-    private publish(anEvent: ObjectEvent) {
-        this.logger.debug('publishing an event');
-        this.objectEventSubject.next(anEvent);
+    public storeObjectEvent(anObjectEvent: ObjectEvent): void {
+        const request = new PublishObjectEventRequest(anObjectEvent);
+        this.processor.process(request);
+    }
+
+    public switchToTopic(topic: string): void {
+        const request = new SwitchToTopicRequest(topic);
+        this.processor.process(request);
     }
 }
