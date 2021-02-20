@@ -12,6 +12,10 @@ export class RequestProcessor {
     }
 
     public process(aRequest: ObjectEventRequest): void {
-        return;
+        try {
+            aRequest.execute(this.endpoint);
+        } catch(error) {
+            console.log(error);
+        }
     }
 }
