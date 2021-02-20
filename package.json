@@ -1,6 +1,6 @@
 {
   "name": "prime-barnacle",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A client hiding network issues for connecting with an object event backend.",
   "keywords": [],
   "author": "Axel",
@@ -37,10 +37,11 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
-    "happy-barnacle": "^2.1.2"
+    "typescript": "^4.1.5"
   },
   "dependencies": {
-    "sitka": "^1.0.5"
+    "sitka": "^1.0.5",
+    "rxjs": "~6.6.3",
+    "happy-barnacle": "^2.1.2"
   }
 }
