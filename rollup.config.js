@@ -7,7 +7,6 @@ export default {
       format: 'umd',
       name: 'primeBarnacle',
       globals :{
-          sitka:'sitka',
           rxjs:'rxjs'
       }
     },
@@ -16,5 +15,5 @@ export default {
           typescript: require('typescript'),
         })
     ],
-    external: [ 'sitka','rxjs' ]
+    external: [ 'rxjs' ]
   };
