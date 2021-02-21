@@ -1,3 +1,6 @@
+# v1.1.1
+- fix: failure to create event source no longer yields a visible exception.
+
 # v1.1.0
 - tries to re-execute requests, if server cannot be connected to
 
