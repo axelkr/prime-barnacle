@@ -1,6 +1,6 @@
 {
   "group": "Barnacle",
-  "name": "CI_HappyBarnacle",
+  "name": "CI_PrimeBarnacle",
   "display_order_weight": -1.0,
   "label_template": "${COUNT}",
   "lock_behavior": "none",
@@ -8,7 +8,7 @@
   "parameters": [],
   "materials": [
     {
-      "url": "https://github.com/axelkr/happy-barnacle.git",
+      "url": "https://github.com/axelkr/prime-barnacle.git",
       "branch": "main",
       "shallow_clone": false,
       "filter": {
