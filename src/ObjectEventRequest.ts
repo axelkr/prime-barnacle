@@ -1,6 +1,6 @@
 import { ObjectEvent } from 'happy-barnacle';
 
-type ObjectEventBackEnd = {
+export type ObjectEventBackEnd = {
     topic: string;
     time: string;
     id: number;
