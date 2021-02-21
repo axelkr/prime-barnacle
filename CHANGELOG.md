@@ -1,3 +1,6 @@
+# vNextversion
+-
+
 # v0.2.0
 - update to latest versions of dependencies
 - client now connects with endpoint for new object events (and reconnects if that fails)
