@@ -4,6 +4,7 @@ import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { RequestProcessor } from './RequestProcessor';
 import { NewObjectEventStream} from './NewObjectEventStream';
+import { IEventSourceFactory } from './IEventSourceFactory';
 
 export class Client {
     public readonly publishedObjectEvents: Observable<ObjectEvent>;
@@ -11,11 +12,11 @@ export class Client {
     private readonly processor: RequestProcessor;
     private readonly newObjectEventsStream: NewObjectEventStream;
 
-    constructor(endpoint: string) {
+    constructor(endpoint: string, eventSourceFactory:IEventSourceFactory ) {
         this.objectEventSubject = new Subject<ObjectEvent>();
         this.publishedObjectEvents = this.objectEventSubject;
         this.processor = new RequestProcessor(this.objectEventSubject, endpoint);
-        this.newObjectEventsStream = new NewObjectEventStream(this.objectEventSubject,endpoint);
+        this.newObjectEventsStream = new NewObjectEventStream(this.objectEventSubject,endpoint, eventSourceFactory);
     }
 
     public storeObjectEvent(anObjectEvent: ObjectEvent): void {
