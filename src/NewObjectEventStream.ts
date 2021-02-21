@@ -23,7 +23,11 @@ export class NewObjectEventStream {
       this.events.onmessage = null;
       this.events.onerror = null;
     }
-    this.events = this.eventSourceFactory.createEventSource(this.endpoint + '/newObjectEvents');
+    try {
+      this.events = this.eventSourceFactory.createEventSource(this.endpoint + '/newObjectEvents');
+    } catch (error) {
+      this.connectionFailed();
+    }
     this.events.onmessage = event => {
       const asObjectEvent = ObjectEventRequest.deserializeSingleEvent(JSON.parse(event.data));
       publishTo.next(asObjectEvent);
