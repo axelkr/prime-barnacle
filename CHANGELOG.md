@@ -1,3 +1,6 @@
+# nextVersion
+- (tries to re-execute requests, if server down)
+
 # v1.0.0
 - user has to provide HTTPClient for requests
 - client now processes synchronuous requests
