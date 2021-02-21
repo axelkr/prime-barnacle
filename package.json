@@ -18,7 +18,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json",
-    "testCLI": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json --junitreport",
+    "testCLI": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json --junitreport --filePrefix=test-results",
     "lint": "eslint src/ --ext .ts"
   },
   "devDependencies": {
