@@ -9,6 +9,8 @@ export class SwitchToTopicRequest extends ObjectEventRequest {
     }
 
     execute(endpoint: string): void {
-        return;
+        //const allObjectEvents: Observable<ObjectEventBackEnd[]> =
+      //this.httpClient.get<any[]>(this.endpoint + `/objectEvent?topic=` + topic);
+    //return map(this.deserializeServerObjectEvent)(allObjectEvents);
     }
 }
