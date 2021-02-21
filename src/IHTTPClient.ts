@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 export type ObjectEventBackEnd = {
     topic: string;
     time: string;
@@ -9,6 +11,6 @@ export type ObjectEventBackEnd = {
 };
 
 export interface IHTTPClient {
-    postJson(url:string,json:Record<string, unknown>): void;
-    get(url:string): ObjectEventBackEnd[];
+    postJson(url: string, json: Record<string, unknown>): void;
+    get(url: string): Observable<ObjectEventBackEnd>;
 }

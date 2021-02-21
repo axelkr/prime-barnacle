@@ -1,6 +1,10 @@
 # nextVersion
 - (tries to re-execute requests, if server down)
 
+# v1.0.1
+- fix: provide type for IHTTPClient
+- fix: correct type for IHTTPClient.get : returns observable instead
+
 # v1.0.0
 - user has to provide HTTPClient for requests
 - client now processes synchronuous requests
