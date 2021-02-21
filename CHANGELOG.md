@@ -1,5 +1,5 @@
-# nextVersion
-- (tries to re-execute requests, if server down)
+# v1.1.0
+- tries to re-execute requests, if server cannot be connected to
 
 # v1.0.1
 - fix: provide type for IHTTPClient
