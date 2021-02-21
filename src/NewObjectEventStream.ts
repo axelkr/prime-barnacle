@@ -19,6 +19,10 @@ export class NewObjectEventStream {
   }
 
   private setupEventStreamForNewObjectEvents(publishTo: Subject<ObjectEvent>, notifyAboutError: NewObjectEventStream) {
+    if (this.events !== undefined) {
+      this.events.onmessage = null;
+      this.events.onerror = null;
+    }
     this.events = this.eventSourceFactory.createEventSource(this.endpoint + '/newObjectEvents');
     this.events.onmessage = event => {
       const asObjectEvent = ObjectEventRequest.deserializeSingleEvent(JSON.parse(event.data));
@@ -33,7 +37,7 @@ export class NewObjectEventStream {
     if (this.timeOutId !== undefined) {
       return;
     }
-    this.timeOutId = setTimeout(()=>this.reconnect(),this.reconnectAfterMilliseconds);
+    this.timeOutId = setTimeout(() => this.reconnect(), this.reconnectAfterMilliseconds);
   }
 
   public reconnect(): void {

@@ -4,29 +4,54 @@ import { expect } from 'chai';
 import { EventSourceMock, EventSourceMockFactory, EventMock } from './EventSourceMock';
 import { NewObjectEventStream } from '../src/NewObjectEventStream';
 import { Subject } from 'rxjs';
-import { ObjectEvent} from 'happy-barnacle';
-import { ObjectEventBackEnd} from '../src/ObjectEventRequest';
+import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEventBackEnd } from '../src/ObjectEventRequest';
 
 describe('NewObjectEventStream', () => {
 	const dummyEndpoint = 'http://endpoint';
 	const eventSourceFactory = new EventSourceMockFactory();
 	const reportTo = new Subject<ObjectEvent>();
 
+	beforeEach(function () {
+		jasmine.clock().install();
+	});
+
+	afterEach(function () {
+		jasmine.clock().uninstall();
+	});
+
 	it('should create an instance using its constructor', () => {
-		const testObject = new NewObjectEventStream(reportTo,dummyEndpoint,eventSourceFactory);
+		const testObject = new NewObjectEventStream(reportTo, dummyEndpoint, eventSourceFactory);
 		expect(testObject, 'testObject should exist').to.exist; // tslint:disable-line:no-unused-expression
 	});
 
 	it('forwards events to subject', () => {
-		const eventSourceMock: EventSourceMock = new EventSourceMock(dummyEndpoint);
+		const eventSourceMock = new EventSourceMock(dummyEndpoint);
 		eventSourceFactory.nextEventSourceToReturn = eventSourceMock;
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const testObject = new NewObjectEventStream(reportTo,dummyEndpoint,eventSourceFactory);
-		const randomDateTime = new Date(2020,11,17,2,42,33);
-		const backendEvent = setTimeObjectEventBackEnd(randomDateTime,generateJSONFromServer());
+		const testObject = new NewObjectEventStream(reportTo, dummyEndpoint, eventSourceFactory);
+		const randomDateTime = new Date(2020, 11, 17, 2, 42, 33);
+		const backendEvent = setTimeObjectEventBackEnd(randomDateTime, generateJSONFromServer());
 		let reportedEvent: ObjectEvent = undefined;
-		reportTo.subscribe({next: anObjectEvent => reportedEvent = anObjectEvent});
+		reportTo.subscribe({ next: anObjectEvent => reportedEvent = anObjectEvent });
 		eventSourceMock.onmessage(createJSONMockEvent(backendEvent));
+		expect(reportedEvent.time).to.deep.equal(randomDateTime);
+	});
+
+	it('requests new event source within 1 second in case current one fails', () => {
+		const firstEventSource = new EventSourceMock(dummyEndpoint);
+		eventSourceFactory.nextEventSourceToReturn = firstEventSource;
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const testObject = new NewObjectEventStream(reportTo, dummyEndpoint, eventSourceFactory);
+		let reportedEvent: ObjectEvent = undefined;
+		reportTo.subscribe({ next: anObjectEvent => reportedEvent = anObjectEvent });
+		const secondEventSource = new EventSourceMock(dummyEndpoint);
+		eventSourceFactory.nextEventSourceToReturn = secondEventSource;
+		firstEventSource.onerror(createJSONMockEvent(new EventMock('error')));
+		jasmine.clock().tick(1000);
+		const randomDateTime = new Date(2020, 11, 17, 2, 42, 33);
+		const backendEvent = setTimeObjectEventBackEnd(randomDateTime, generateJSONFromServer());
+		secondEventSource.onmessage(createJSONMockEvent(backendEvent));
 		expect(reportedEvent.time).to.deep.equal(randomDateTime);
 	});
 
@@ -37,7 +62,7 @@ describe('NewObjectEventStream', () => {
 	}
 
 	function generateJSONFromServer(): ObjectEventBackEnd {
-		const emptyMap = new Map<string,string>();
+		const emptyMap = new Map<string, string>();
 		const serializedEmptyMap = JSON.stringify(Array.from(emptyMap.entries()));
 		return {
 			topic: 'topic',
@@ -50,7 +75,7 @@ describe('NewObjectEventStream', () => {
 		};
 	}
 
-	function setTimeObjectEventBackEnd(time:Date, object: ObjectEventBackEnd): ObjectEventBackEnd {
+	function setTimeObjectEventBackEnd(time: Date, object: ObjectEventBackEnd): ObjectEventBackEnd {
 		object.time = time.toUTCString();
 		return object;
 	}
