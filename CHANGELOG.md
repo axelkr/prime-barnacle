@@ -1,5 +1,6 @@
-# vNextversion
--
+# v1.0.0
+- user has to provide HTTPClient for requests
+- client now processes synchronuous requests
 
 # v0.2.0
 - update to latest versions of dependencies

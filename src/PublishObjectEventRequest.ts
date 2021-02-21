@@ -1,11 +1,13 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { ObjectEvent } from 'happy-barnacle';
+import { Subject } from 'rxjs';
+import { IHTTPClient } from './IHTTPClient';
 
 export class PublishObjectEventRequest extends ObjectEventRequest {
     private readonly toPublish: ObjectEvent;
 
-    constructor(anObjectEvent: ObjectEvent) {
-        super();
+    constructor(anObjectEvent: ObjectEvent, httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>) {
+        super(httpClient,publishTo);
         this.toPublish = anObjectEvent;
     }
 
@@ -17,9 +19,6 @@ export class PublishObjectEventRequest extends ObjectEventRequest {
             objectType: this.toPublish.objectType,
             payload: JSON.stringify(Array.from(this.toPublish.payload.entries()))
         };
-
-        // TODO: Track state ob request in a status at ObjectEventRequest, then the processor knows the status and how to proceed.
-        //const headers = { 'content-type': 'application/json' };
-        //this.httpClient.post(this.endpoint + '/objectEvent', JSON.stringify(asJSON), { headers }).subscribe();
+        this.httpClient.postJson(endpoint + '/objectEvent',asJSON);
     }
 }

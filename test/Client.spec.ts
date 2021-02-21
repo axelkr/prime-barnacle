@@ -9,7 +9,7 @@ describe('Client', () => {
 	const eventSourceFactory = new EventSourceMockFactory();
 
 	it('should create an instance using its constructor', () => {
-		const example: Client = new Client(dummyEndpoint,eventSourceFactory);
+		const example: Client = new Client(dummyEndpoint,eventSourceFactory,undefined);
 		expect(example, 'example should exist').to.exist; // tslint:disable-line:no-unused-expression
 	});
 });

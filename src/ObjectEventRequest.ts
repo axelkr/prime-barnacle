@@ -1,16 +1,16 @@
 import { ObjectEvent } from 'happy-barnacle';
-
-export type ObjectEventBackEnd = {
-    topic: string;
-    time: string;
-    id: number;
-    eventType: string;
-    object: string;
-    objectType: string;
-    payload: string;
-};
+import { IHTTPClient,ObjectEventBackEnd } from './IHTTPClient';
+import { Subject } from 'rxjs';
 
 export abstract class ObjectEventRequest {
+    protected readonly httpClient: IHTTPClient;
+    protected readonly publishTo: Subject<ObjectEvent>;
+
+    constructor(httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>) {
+        this.httpClient = httpClient;
+        this.publishTo = publishTo;
+    }
+
     abstract execute(endpoint: string): void;
 
     public static deserializeSingleEvent(json: ObjectEventBackEnd): ObjectEvent {
@@ -23,13 +23,5 @@ export abstract class ObjectEventRequest {
             object: json.object,
             objectType: json.objectType
         };
-    }
-
-    protected deserializeServerObjectEvent(jsonBackend: ObjectEventBackEnd[]): ObjectEvent[] {
-        const results: ObjectEvent[] = [];
-        jsonBackend.forEach(json => {
-            results.push(ObjectEventRequest.deserializeSingleEvent(json));
-        });
-        return results;
     }
 }

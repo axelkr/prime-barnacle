@@ -5,7 +5,7 @@ import { EventSourceMock, EventSourceMockFactory, EventMock } from './EventSourc
 import { NewObjectEventStream } from '../src/NewObjectEventStream';
 import { Subject } from 'rxjs';
 import { ObjectEvent } from 'happy-barnacle';
-import { ObjectEventBackEnd } from '../src/ObjectEventRequest';
+import { ObjectEventBackEnd } from '../src/IHTTPClient';
 
 describe('NewObjectEventStream', () => {
 	const dummyEndpoint = 'http://endpoint';
