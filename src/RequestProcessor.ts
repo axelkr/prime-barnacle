@@ -26,27 +26,32 @@ export class RequestProcessor {
         if (this.timeOutId !== undefined) {
             return;
         }
-        // check with ongoing asynchronuous request
+        let processOpenRequests = true;
+
         if (this.runningRequest !== undefined) {
-            if (this.runningRequest.state === ObjectEventRequest.ERROR) {
-                this.runningRequest = undefined;
-                this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
-                return;
-            } else if (this.runningRequest.state === ObjectEventRequest.FINISHED) {
-                this.runningRequest = undefined;
-                this.openRequests.shift();
-            } else {
-                // still ongoing
-                this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
-                return;
-            }
+            processOpenRequests = this.checkOngoingAsynchronuousRequest();
         }
-
-        if (this.runningRequest!==undefined) {
-            throw new Error("no request should be running at this point.");
+        if (processOpenRequests) {
+            this.processOpenRequestQueue();
         }
+    }
 
-        //process next request
+    private checkOngoingAsynchronuousRequest(): boolean {
+        if (this.runningRequest.state === ObjectEventRequest.ERROR) {
+            this.runningRequest = undefined;
+            this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
+            return false;
+        } else if (this.runningRequest.state === ObjectEventRequest.FINISHED) {
+            this.runningRequest = undefined;
+            this.openRequests.shift();
+            return true;
+        } else { // still ongoing
+            this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
+            return false;
+        }
+    }
+
+    private processOpenRequestQueue(): void {
         try {
             while (this.openRequests.length > 0) {
                 const aRequest = this.openRequests[0];
@@ -57,6 +62,7 @@ export class RequestProcessor {
                     this.runningRequest = aRequest;
                     this.runningRequest.execute(this.endpoint);
                     this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
+                    return;
                 }
             }
         } catch (error) {
@@ -72,7 +78,5 @@ export class RequestProcessor {
             aRequestProcessor.processOpenRequests()
         },
             millisecondsToWait);
-
-
     }
 }
