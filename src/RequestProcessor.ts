@@ -9,7 +9,7 @@ export class RequestProcessor {
     private runningRequest: ObjectEventRequest;
     public timeOutId: NodeJS.Timeout = undefined;
     private readonly processAgainAfterMilliseconds = 500;
-    private readonly waitForAsynchronuousRequestMilliseconds = 50;
+    private readonly waitForAsynchronuousRequestMilliseconds = 250;
 
     constructor(publishTo: Subject<ObjectEvent>, endpoint: string) {
         this.objectEventSubject = publishTo;
@@ -23,27 +23,29 @@ export class RequestProcessor {
     }
 
     public processOpenRequests(): void {
-
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const aRequestProcessor = this;
         if (this.timeOutId !== undefined) {
             return;
         }
         // check with ongoing asynchronuous request
-        if (this.runningRequest != undefined) {
+        if (this.runningRequest !== undefined) {
             if (this.runningRequest.state === ObjectEventRequest.ERROR) {
                 this.runningRequest = undefined;
-                this.timeOutId = setTimeout(() => { aRequestProcessor.timeOutId = undefined; aRequestProcessor.processOpenRequests() }, this.processAgainAfterMilliseconds);
+                this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
                 return;
             } else if (this.runningRequest.state === ObjectEventRequest.FINISHED) {
                 this.runningRequest = undefined;
                 this.openRequests.shift();
             } else {
                 // still ongoing
-                this.timeOutId = setTimeout(() => { aRequestProcessor.timeOutId = undefined; aRequestProcessor.processOpenRequests() }, this.waitForAsynchronuousRequestMilliseconds);
+                this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
                 return;
             }
         }
+
+        if (this.runningRequest!==undefined) {
+            throw new Error("no request should be running at this point.");
+        }
+
         //process next request
         try {
             while (this.openRequests.length > 0) {
@@ -54,11 +56,23 @@ export class RequestProcessor {
                 } else {
                     this.runningRequest = aRequest;
                     this.runningRequest.execute(this.endpoint);
-                    this.timeOutId = setTimeout(() => { aRequestProcessor.timeOutId = undefined; aRequestProcessor.processOpenRequests() }, this.waitForAsynchronuousRequestMilliseconds);
+                    this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
                 }
             }
         } catch (error) {
-            this.timeOutId = setTimeout(() => { aRequestProcessor.timeOutId = undefined; aRequestProcessor.processOpenRequests() }, this.processAgainAfterMilliseconds);
+            this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
         }
+    }
+
+    private rerunProcessOpenRequests(millisecondsToWait: number) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const aRequestProcessor = this;
+        this.timeOutId = setTimeout(() => {
+            aRequestProcessor.timeOutId = undefined;
+            aRequestProcessor.processOpenRequests()
+        },
+            millisecondsToWait);
+
+
     }
 }

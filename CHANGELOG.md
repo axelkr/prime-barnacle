@@ -1,3 +1,6 @@
+# v1.1.4
+- fixes
+
 # v1.1.3
 - handle asynchronuous requests as well
 
