@@ -7,7 +7,7 @@ export class PublishObjectEventRequest extends ObjectEventRequest {
     private readonly toPublish: ObjectEvent;
 
     constructor(anObjectEvent: ObjectEvent, httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>) {
-        super(httpClient,publishTo);
+        super(httpClient,publishTo,true);
         this.toPublish = anObjectEvent;
     }
 

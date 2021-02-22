@@ -1,3 +1,6 @@
+# v1.1.3
+- handle asynchronuous requests as well
+
 # v1.1.1
 - fix: failure to create event source no longer yields a visible exception.
 
