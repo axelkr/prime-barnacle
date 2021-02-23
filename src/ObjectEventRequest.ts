@@ -10,7 +10,7 @@ export abstract class ObjectEventRequest {
     public readonly isSynchronuous: boolean;
     public state: number = ObjectEventRequest.WAITING;
     protected readonly httpClient: IHTTPClient;
-    protected readonly publishTo: Subject<ObjectEvent>;
+    public readonly publishTo: Subject<ObjectEvent>;
 
     constructor(httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>, isSynchronuous: boolean) {
         this.httpClient = httpClient;
