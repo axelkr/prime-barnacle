@@ -1,7 +1,7 @@
 import { IHTTPClient, ObjectEventBackEnd } from './IHTTPClient';
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { Observable, Subject } from 'rxjs';
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 
 export class SwitchToTopicRequest extends ObjectEventRequest {
     private readonly newTopic: string;

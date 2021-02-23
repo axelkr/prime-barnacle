@@ -1,6 +1,6 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { Subject } from 'rxjs';
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 
 export class RequestProcessor {
     private readonly objectEventSubject: Subject<ObjectEvent>;

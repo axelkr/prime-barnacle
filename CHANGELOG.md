@@ -1,3 +1,6 @@
+# v1.1.7
+- remove dependency just for a type
+
 # v1.1.6
 - more fixes to allow initial server down
 

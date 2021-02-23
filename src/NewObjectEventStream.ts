@@ -1,6 +1,6 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { Subject } from 'rxjs';
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 import { IEventSourceFactory } from './IEventSourceFactory';
 
 export class NewObjectEventStream {

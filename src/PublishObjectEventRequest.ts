@@ -1,5 +1,5 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 import { Subject } from 'rxjs';
 import { IHTTPClient } from './IHTTPClient';
 

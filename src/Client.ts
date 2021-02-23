@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { RequestProcessor } from './RequestProcessor';

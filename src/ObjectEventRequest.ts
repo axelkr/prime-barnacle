@@ -1,4 +1,4 @@
-import { ObjectEvent } from 'happy-barnacle';
+import { ObjectEvent } from './ObjectEvent';
 import { IHTTPClient,ObjectEventBackEnd } from './IHTTPClient';
 import { Subject } from 'rxjs';
 
