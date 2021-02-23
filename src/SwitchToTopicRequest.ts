@@ -20,8 +20,7 @@ export class SwitchToTopicRequest extends ObjectEventRequest {
             next(value: ObjectEventBackEnd) {
                 thisRequest.publishTo.next(ObjectEventRequest.deserializeSingleEvent(value));
             },
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-explicit-any
-            error(error: any) { thisRequest.state = ObjectEventRequest.ERROR },
+            error() { thisRequest.state = ObjectEventRequest.ERROR },
             complete() { thisRequest.state = ObjectEventRequest.FINISHED }
         });
     }

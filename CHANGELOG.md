@@ -1,3 +1,6 @@
+# v1.1.6
+- more fixes to allow initial server down
+
 # v1.1.5
 - more fixes.
 
