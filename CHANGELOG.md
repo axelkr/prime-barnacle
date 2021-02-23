@@ -1,3 +1,6 @@
+# v1.1.8
+- export type for ObjectBackEnd as well, as this is required for the definition for IHTTPClient
+
 # v1.1.7
 - remove dependency just for a type
 

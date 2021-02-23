@@ -1,6 +1,6 @@
 {
   "name": "prime-barnacle",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "A client hiding network issues for connecting with an object event backend.",
   "keywords": [],
   "author": "Axel",
