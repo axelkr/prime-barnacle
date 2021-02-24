@@ -65,7 +65,7 @@ describe('NewObjectEventStream', () => {
 		const serializedEmptyMap = JSON.stringify(Array.from(emptyMap.entries()));
 		return {
 			topic: 'topic',
-			time: new Date(),
+			time: new Date().toUTCString(),
 			id: 0,
 			eventType: 'eventType',
 			object: 'object',
@@ -75,7 +75,7 @@ describe('NewObjectEventStream', () => {
 	}
 
 	function setTimeObjectEventBackEnd(time: Date, object: ObjectEventREST): ObjectEventREST {
-		object.time = time;
+		object.time = time.toUTCString();
 		return object;
 	}
 });

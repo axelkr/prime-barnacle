@@ -1,3 +1,6 @@
+# v2.0.0
+- breaking change: types and conversion are now provided by choicest-barnacle
+
 # v1.1.9
 - get types and conversion for ObjectEvent from separate package
 
