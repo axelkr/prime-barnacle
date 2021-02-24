@@ -1,3 +1,6 @@
+# v2.0.1
+- provide in a different format, which is more browser-friendly
+
 # v2.0.0
 - breaking change: types and conversion are now provided by choicest-barnacle
 

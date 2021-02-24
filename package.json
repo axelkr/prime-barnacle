@@ -1,6 +1,6 @@
 {
   "name": "prime-barnacle",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A client hiding network issues for connecting with an object event backend.",
   "keywords": [],
   "author": "Axel",
@@ -22,6 +22,7 @@
     "lint": "eslint src/ --ext .ts"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
     "@types/better-sqlite3": "^5.4.1",
     "@types/chai": "^4.2.15",
     "@types/jasmine": "^3.6.4",
