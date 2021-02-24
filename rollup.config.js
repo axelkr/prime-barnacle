@@ -7,7 +7,8 @@ export default {
       format: 'umd',
       name: 'primeBarnacle',
       globals :{
-          rxjs:'rxjs'
+          rxjs:'rxjs',
+          'choicest-barnacle':'choicest-barnacle'
       }
     },
     plugins: [
@@ -15,5 +16,5 @@ export default {
           typescript: require('typescript'),
         })
     ],
-    external: [ 'rxjs' ]
+    external: [ 'rxjs','choicest-barnacle' ]
   };

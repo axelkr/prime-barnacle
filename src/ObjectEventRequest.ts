@@ -1,5 +1,5 @@
-import { ObjectEvent } from './ObjectEvent';
-import { IHTTPClient,ObjectEventBackEnd } from './IHTTPClient';
+import { ObjectEvent, ObjectEventMappingService, ObjectEventREST } from 'choicest-barnacle';
+import { IHTTPClient } from './IHTTPClient';
 import { Subject } from 'rxjs';
 
 export abstract class ObjectEventRequest {
@@ -20,15 +20,8 @@ export abstract class ObjectEventRequest {
 
     abstract execute(endpoint: string): void;
 
-    public static deserializeSingleEvent(json: ObjectEventBackEnd): ObjectEvent {
-        return {
-            topic: json.topic,
-            payload: new Map<string, string>(JSON.parse(json.payload)),
-            time: new Date(json.time),
-            id: json.id,
-            eventType: json.eventType,
-            object: json.object,
-            objectType: json.objectType
-        };
+    public static deserializeSingleEvent(json: ObjectEventREST): ObjectEvent {
+        const mappingService = new ObjectEventMappingService();
+        return mappingService.fromObjectEventREST(json);
     }
 }

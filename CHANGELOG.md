@@ -1,3 +1,6 @@
+# v1.1.9
+- get types and conversion for ObjectEvent from separate package
+
 # v1.1.8
 - export type for ObjectBackEnd as well, as this is required for the definition for IHTTPClient
 

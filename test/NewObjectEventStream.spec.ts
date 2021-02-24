@@ -4,8 +4,7 @@ import { expect } from 'chai';
 import { EventSourceMock, EventSourceMockFactory, EventMock } from './EventSourceMock';
 import { NewObjectEventStream } from '../src/NewObjectEventStream';
 import { Subject } from 'rxjs';
-import { ObjectEvent } from 'happy-barnacle';
-import { ObjectEventBackEnd } from '../src/IHTTPClient';
+import { ObjectEvent, ObjectEventREST } from 'choicest-barnacle';
 
 describe('NewObjectEventStream', () => {
 	const dummyEndpoint = 'http://endpoint';
@@ -61,12 +60,12 @@ describe('NewObjectEventStream', () => {
 		return result;
 	}
 
-	function generateJSONFromServer(): ObjectEventBackEnd {
+	function generateJSONFromServer(): ObjectEventREST {
 		const emptyMap = new Map<string, string>();
 		const serializedEmptyMap = JSON.stringify(Array.from(emptyMap.entries()));
 		return {
 			topic: 'topic',
-			time: new Date().toUTCString(),
+			time: new Date(),
 			id: 0,
 			eventType: 'eventType',
 			object: 'object',
@@ -75,8 +74,8 @@ describe('NewObjectEventStream', () => {
 		};
 	}
 
-	function setTimeObjectEventBackEnd(time: Date, object: ObjectEventBackEnd): ObjectEventBackEnd {
-		object.time = time.toUTCString();
+	function setTimeObjectEventBackEnd(time: Date, object: ObjectEventREST): ObjectEventREST {
+		object.time = time;
 		return object;
 	}
 });

@@ -1,6 +1,6 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { Subject } from 'rxjs';
-import { ObjectEvent } from './ObjectEvent';
+import { ObjectEvent } from 'choicest-barnacle';
 import { IEventSourceFactory } from './IEventSourceFactory';
 
 export class NewObjectEventStream {

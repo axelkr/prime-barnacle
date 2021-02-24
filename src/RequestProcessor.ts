@@ -1,9 +1,6 @@
 import { ObjectEventRequest } from './ObjectEventRequest';
-import { Subject } from 'rxjs';
-import { ObjectEvent } from './ObjectEvent';
 
 export class RequestProcessor {
-    private readonly objectEventSubject: Subject<ObjectEvent>;
     private readonly endpoint: string;
     private readonly openRequests: Array<ObjectEventRequest> = new Array<ObjectEventRequest>();
     private runningRequest: ObjectEventRequest;
@@ -11,8 +8,7 @@ export class RequestProcessor {
     private readonly processAgainAfterMilliseconds = 500;
     private readonly waitForAsynchronuousRequestMilliseconds = 250;
 
-    constructor(publishTo: Subject<ObjectEvent>, endpoint: string) {
-        this.objectEventSubject = publishTo;
+    constructor(endpoint: string) {
         this.endpoint = endpoint;
         this.runningRequest = undefined;
     }

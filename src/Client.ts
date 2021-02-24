@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { ObjectEvent } from './ObjectEvent';
+import { ObjectEvent } from 'choicest-barnacle';
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { RequestProcessor } from './RequestProcessor';
@@ -19,7 +19,7 @@ export class Client {
         this.publishedObjectEvents = this.objectEventSubject;
         this.httpClient = httpClient;
 
-        this.processor = new RequestProcessor(this.objectEventSubject, endpoint);
+        this.processor = new RequestProcessor(endpoint);
         this.newObjectEventsStream = new NewObjectEventStream(this.objectEventSubject,endpoint, eventSourceFactory);
     }
 

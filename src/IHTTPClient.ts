@@ -1,16 +1,7 @@
 import { Observable } from 'rxjs';
-
-export type ObjectEventBackEnd = {
-    topic: string;
-    time: string;
-    id: number;
-    eventType: string;
-    object: string;
-    objectType: string;
-    payload: string;
-};
+import { ObjectEventREST } from 'choicest-barnacle'
 
 export interface IHTTPClient {
-    postJson(url: string, json: Record<string, unknown>): void;
-    get(url: string): Observable<ObjectEventBackEnd>;
+    postJson(url: string, json: ObjectEventREST): void;
+    get(url: string): Observable<ObjectEventREST>;
 }
