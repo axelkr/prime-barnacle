@@ -35,7 +35,7 @@
     "jasmine": "^3.6.4",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-xml-reporter": "^1.2.1",
-    "rollup": "^2.39.1",
+    "rollup": "^2.40.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
@@ -43,6 +43,6 @@
   },
   "dependencies": {
     "choicest-barnacle": "^2.0.0",
-    "rxjs": "~6.6.3"
+    "rxjs": "~6.6.6"
   }
 }
