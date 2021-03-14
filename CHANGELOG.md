@@ -1,3 +1,6 @@
+# v2.1.0
+- integrate topic as a class
+
 # v2.0.1
 - provide in a different format, which is more browser-friendly
 

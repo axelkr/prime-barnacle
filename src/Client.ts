@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { ObjectEvent } from 'choicest-barnacle';
+import { ObjectEvent, Topic } from 'choicest-barnacle';
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { RequestProcessor } from './RequestProcessor';
@@ -28,7 +28,7 @@ export class Client {
         this.processor.process(request);
     }
 
-    public switchToTopic(topic: string): void {
+    public switchToTopic(topic: Topic): void {
         const request = new SwitchToTopicRequest(topic,this.httpClient,this.objectEventSubject);
         this.processor.process(request);
     }
