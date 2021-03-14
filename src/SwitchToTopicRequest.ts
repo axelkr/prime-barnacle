@@ -2,6 +2,7 @@ import { IHTTPClient } from './IHTTPClient';
 import { ObjectEventRequest } from './ObjectEventRequest';
 import { Observable, Subject } from 'rxjs';
 import { ObjectEvent, ObjectEventREST, Topic } from 'choicest-barnacle';
+import { RequestState } from './IRequest';
 
 export class SwitchToTopicRequest extends ObjectEventRequest {
     private readonly newTopic: Topic;
@@ -14,14 +15,14 @@ export class SwitchToTopicRequest extends ObjectEventRequest {
     execute(endpoint: string): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const thisRequest: ObjectEventRequest = this;
-        this.state = ObjectEventRequest.RUNNING;
+        this.state = RequestState.RUNNING;
         const backendObjectEvents: Observable<ObjectEventREST> = this.httpClient.get(endpoint + `/objectEvent?topic=` + this.newTopic.id);
         backendObjectEvents.subscribe({
             next(value: ObjectEventREST) {
                 thisRequest.publishTo.next(ObjectEventRequest.deserializeSingleEvent(value));
             },
-            error() { thisRequest.state = ObjectEventRequest.ERROR },
-            complete() { thisRequest.state = ObjectEventRequest.FINISHED }
+            error() { thisRequest.state = RequestState.ERROR },
+            complete() { thisRequest.state = RequestState.FINISHED }
         });
     }
 }

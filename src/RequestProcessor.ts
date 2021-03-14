@@ -1,9 +1,9 @@
-import { ObjectEventRequest } from './ObjectEventRequest';
+import { IRequest, RequestState } from './IRequest';
 
 export class RequestProcessor {
     private readonly endpoint: string;
-    private readonly openRequests: Array<ObjectEventRequest> = new Array<ObjectEventRequest>();
-    private runningRequest: ObjectEventRequest;
+    private readonly openRequests: Array<IRequest> = new Array<IRequest>();
+    private runningRequest: IRequest;
     public timeOutId: NodeJS.Timeout = undefined;
     private readonly processAgainAfterMilliseconds = 500;
     private readonly waitForAsynchronuousRequestMilliseconds = 250;
@@ -13,7 +13,7 @@ export class RequestProcessor {
         this.runningRequest = undefined;
     }
 
-    public process(aRequest: ObjectEventRequest): void {
+    public process(aRequest: IRequest): void {
         this.openRequests.push(aRequest);
         this.processOpenRequests();
     }
@@ -33,11 +33,11 @@ export class RequestProcessor {
     }
 
     private checkOngoingAsynchronuousRequest(): boolean {
-        if (this.runningRequest.state === ObjectEventRequest.ERROR) {
+        if (this.runningRequest.state === RequestState.ERROR) {
             this.runningRequest = undefined;
             this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
             return false;
-        } else if (this.runningRequest.state === ObjectEventRequest.FINISHED) {
+        } else if (this.runningRequest.state === RequestState.FINISHED) {
             this.runningRequest = undefined;
             this.openRequests.shift();
             return true;

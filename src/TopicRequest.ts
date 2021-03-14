@@ -1,17 +1,17 @@
-import { ObjectEvent, MappingService, ObjectEventREST } from 'choicest-barnacle';
+import { Topic, MappingService, TopicREST } from 'choicest-barnacle';
 import { IHTTPClient } from './IHTTPClient';
-import { IRequest, RequestState } from './IRequest';
 import { Subject } from 'rxjs';
+import { IRequest, RequestState } from './IRequest';
 
-export abstract class ObjectEventRequest implements IRequest {
+export abstract class TopicRequest implements IRequest {
     public readonly isSynchronuous: boolean;
     public state: RequestState = RequestState.WAITING;
     
     protected readonly httpClient: IHTTPClient;
     protected readonly mappingService = new MappingService();
-    public readonly publishTo: Subject<ObjectEvent>;
+    public readonly publishTo: Subject<Topic>;
 
-    constructor(httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>, isSynchronuous: boolean) {
+    constructor(httpClient: IHTTPClient, publishTo: Subject<Topic>, isSynchronuous: boolean) {
         this.httpClient = httpClient;
         this.publishTo = publishTo;
         this.isSynchronuous = isSynchronuous;
@@ -19,8 +19,8 @@ export abstract class ObjectEventRequest implements IRequest {
 
     abstract execute(endpoint: string): void;
 
-    public static deserializeSingleEvent(json: ObjectEventREST): ObjectEvent {
+    public static deserializeSingleTopic(json: TopicREST): Topic {
         const mappingService = new MappingService();
-        return mappingService.fromObjectEventREST(json);
+        return mappingService.fromTopicREST(json);
     }
 }

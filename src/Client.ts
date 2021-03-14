@@ -1,6 +1,7 @@
 import { Observable, Subject } from 'rxjs';
 import { ObjectEvent, Topic } from 'choicest-barnacle';
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
+import { PublishTopicRequest } from './PublishTopicRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { RequestProcessor } from './RequestProcessor';
 import { NewObjectEventStream} from './NewObjectEventStream';
@@ -10,6 +11,8 @@ import { IHTTPClient } from './IHTTPClient';
 export class Client {
     public readonly publishedObjectEvents: Observable<ObjectEvent>;
     private readonly objectEventSubject: Subject<ObjectEvent>;
+    public readonly publishedTopics: Observable<Topic>;
+    private readonly topicSubject: Subject<Topic>;
     private readonly processor: RequestProcessor;
     private readonly newObjectEventsStream: NewObjectEventStream;
     private readonly httpClient:IHTTPClient;
@@ -17,6 +20,8 @@ export class Client {
     constructor(endpoint: string, eventSourceFactory:IEventSourceFactory, httpClient: IHTTPClient ) {
         this.objectEventSubject = new Subject<ObjectEvent>();
         this.publishedObjectEvents = this.objectEventSubject;
+        this.topicSubject = new Subject<Topic>();
+        this.publishedTopics = this.topicSubject;
         this.httpClient = httpClient;
 
         this.processor = new RequestProcessor(endpoint);
@@ -30,6 +35,11 @@ export class Client {
 
     public switchToTopic(topic: Topic): void {
         const request = new SwitchToTopicRequest(topic,this.httpClient,this.objectEventSubject);
+        this.processor.process(request);
+    }
+
+    public storeTopic(aTopic: Topic): void {
+        const request = new PublishTopicRequest(aTopic,this.httpClient, this.topicSubject);
         this.processor.process(request);
     }
 }

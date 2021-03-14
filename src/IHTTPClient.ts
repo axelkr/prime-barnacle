@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs';
-import { ObjectEventREST } from 'choicest-barnacle'
 
 export interface IHTTPClient {
-    postJson(url: string, json: ObjectEventREST): void;
-    get(url: string): Observable<ObjectEventREST>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    postJson(url: string, json: any): void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    get(url: string): Observable<any>;
 }
