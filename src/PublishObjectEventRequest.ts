@@ -1,9 +1,9 @@
-import { ObjectEventRequest } from './ObjectEventRequest';
+import { AbstractRequest } from './AbstractRequest';
 import { ObjectEvent } from 'choicest-barnacle';
 import { Subject } from 'rxjs';
 import { IHTTPClient } from './IHTTPClient';
 
-export class PublishObjectEventRequest extends ObjectEventRequest {
+export class PublishObjectEventRequest extends AbstractRequest<ObjectEvent> {
     private readonly toPublish: ObjectEvent;
 
     constructor(anObjectEvent: ObjectEvent, httpClient: IHTTPClient, publishTo: Subject<ObjectEvent>) {

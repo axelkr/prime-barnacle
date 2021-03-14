@@ -1,3 +1,6 @@
+# v2.2.0
+- provide topic related requests
+
 # v2.1.0
 - integrate topic as a class
 

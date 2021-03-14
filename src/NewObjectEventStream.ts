@@ -1,4 +1,4 @@
-import { ObjectEventRequest } from './ObjectEventRequest';
+import { AbstractRequest } from './AbstractRequest';
 import { Subject } from 'rxjs';
 import { ObjectEvent } from 'choicest-barnacle';
 import { IEventSourceFactory } from './IEventSourceFactory';
@@ -29,7 +29,7 @@ export class NewObjectEventStream {
       this.connectionFailed();
     }
     this.events.onmessage = event => {
-      const asObjectEvent = ObjectEventRequest.deserializeSingleEvent(JSON.parse(event.data));
+      const asObjectEvent = AbstractRequest.deserializeObjectEvent(JSON.parse(event.data));
       publishTo.next(asObjectEvent);
     }
     this.events.onerror = () => {

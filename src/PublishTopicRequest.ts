@@ -1,9 +1,9 @@
-import { TopicRequest } from './TopicRequest';
+import { AbstractRequest } from './AbstractRequest';
 import { Topic } from 'choicest-barnacle';
 import { Subject } from 'rxjs';
 import { IHTTPClient } from './IHTTPClient';
 
-export class PublishTopicRequest extends TopicRequest {
+export class PublishTopicRequest extends AbstractRequest<Topic> {
     private readonly toPublish: Topic;
 
     constructor(aTopic: Topic, httpClient: IHTTPClient, publishTo: Subject<Topic>) {
