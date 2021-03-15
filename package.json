@@ -16,7 +16,7 @@
     "/dist/*.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build": "tsc --noEmit && rollup -c rollup.config.js",
     "test": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json",
     "testCLI": "ts-node  --skip-project -s ./node_modules/jasmine-xml-reporter/bin/jasmine --config=jasmine.json --junitreport --filePrefix=test-results",
     "lint": "eslint src/ --ext .ts"
@@ -26,7 +26,6 @@
     "@types/better-sqlite3": "^5.4.1",
     "@types/chai": "^4.2.15",
     "@types/jasmine": "^3.6.6",
-    "@types/mocha": "^8.2.1",
     "@types/node": "^14.14.34",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
