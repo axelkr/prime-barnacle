@@ -1,16 +1,19 @@
 import { IRequest, RequestState } from './IRequest';
+import { IWaitTime } from './IWaitTime';
 
 export class RequestProcessor {
     private readonly endpoint: string;
     private readonly openRequests: Array<IRequest> = new Array<IRequest>();
     private runningRequest: IRequest;
     public timeOutId: NodeJS.Timeout = undefined;
-    private readonly processAgainAfterMilliseconds = 500;
-    private readonly waitForAsynchronuousRequestMilliseconds = 250;
+    private readonly processAgain: IWaitTime;
+    private readonly waitForAsynchronuousRequest: IWaitTime;
 
-    constructor(endpoint: string) {
+    constructor(endpoint: string, processAgain:IWaitTime, waitForAsynchronuousRequest: IWaitTime) {
         this.endpoint = endpoint;
         this.runningRequest = undefined;
+        this.processAgain = processAgain;
+        this.waitForAsynchronuousRequest = waitForAsynchronuousRequest;
     }
 
     public process(aRequest: IRequest): void {
@@ -35,14 +38,18 @@ export class RequestProcessor {
     private checkOngoingAsynchronuousRequest(): boolean {
         if (this.runningRequest.state === RequestState.ERROR) {
             this.runningRequest = undefined;
-            this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
+            this.processAgain.increaseWaitTime();
+            this.rerunProcessOpenRequests(this.processAgain.getWaitTimeMilliseconds());
             return false;
         } else if (this.runningRequest.state === RequestState.FINISHED) {
             this.runningRequest = undefined;
+            this.processAgain.reset();
+            this.waitForAsynchronuousRequest.reset();
             this.openRequests.shift();
             return true;
         } else { // still ongoing
-            this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
+            this.waitForAsynchronuousRequest.increaseWaitTime();
+            this.rerunProcessOpenRequests(this.waitForAsynchronuousRequest.getWaitTimeMilliseconds());
             return false;
         }
     }
@@ -57,12 +64,14 @@ export class RequestProcessor {
                 } else {
                     this.runningRequest = aRequest;
                     this.runningRequest.execute(this.endpoint);
-                    this.rerunProcessOpenRequests(this.waitForAsynchronuousRequestMilliseconds);
+                    this.waitForAsynchronuousRequest.reset();
+                    this.rerunProcessOpenRequests(this.waitForAsynchronuousRequest.getWaitTimeMilliseconds());
                     return;
                 }
             }
         } catch (error) {
-            this.rerunProcessOpenRequests(this.processAgainAfterMilliseconds);
+            this.processAgain.increaseWaitTime();
+            this.rerunProcessOpenRequests(this.processAgain.getWaitTimeMilliseconds());
         }
     }
 

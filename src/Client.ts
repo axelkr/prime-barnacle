@@ -5,6 +5,7 @@ import { RequestProcessor } from './RequestProcessor';
 import { NewObjectEventStream } from './NewObjectEventStream';
 import { IEventSourceFactory } from './IEventSourceFactory';
 import { IHTTPClient } from './IHTTPClient';
+import { WaitTime } from './WaitTime';
 
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { PublishTopicRequest } from './PublishTopicRequest';
@@ -27,7 +28,10 @@ export class Client {
         this.publishedTopics = this.topicSubject;
         this.httpClient = httpClient;
 
-        this.processor = new RequestProcessor(endpoint);
+        const processAgain: WaitTime = new WaitTime(250, 100, 1000);
+        const waitForAsynchronuousRequest: WaitTime = new WaitTime(50, 50, 500);
+        this.processor = new RequestProcessor(endpoint, processAgain, waitForAsynchronuousRequest);
+
         this.newObjectEventsStream = new NewObjectEventStream(this.objectEventSubject, endpoint, eventSourceFactory);
     }
 
