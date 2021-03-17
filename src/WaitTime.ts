@@ -6,7 +6,7 @@ export class WaitTime implements IWaitTime {
     private readonly maximalWaitTimeMilliseconds: number;
     private readonly increaseReallyAfterNRequestedIncreases: number = 2;
     private requestedIncreases = 0;
-    private currentWaitTime: number;
+    private currentWaitTimeMilliseconds: number;
 
     constructor(initialWaitTimeMilliseconds:number,increaseWaitTimeMilliseconds:number, maximalWaitTimeMilliseconds:number) {
         this.initialWaitTimeMilliseconds = initialWaitTimeMilliseconds;
@@ -16,11 +16,11 @@ export class WaitTime implements IWaitTime {
     }
 
     public getWaitTimeMilliseconds(): number {
-        return this.currentWaitTime;
+        return this.currentWaitTimeMilliseconds;
     }
 
     public reset(): void {
-        this.currentWaitTime = this.initialWaitTimeMilliseconds;
+        this.currentWaitTimeMilliseconds = this.initialWaitTimeMilliseconds;
         this.requestedIncreases = 0;
     }
 
@@ -30,9 +30,9 @@ export class WaitTime implements IWaitTime {
             return;
         }
         this.requestedIncreases = 0;
-        this.currentWaitTime = this.currentWaitTime + this.increaseWaitTimeMilliseconds;
-        if ( this.currentWaitTime > this.maximalWaitTimeMilliseconds ) {
-            this.currentWaitTime = this.maximalWaitTimeMilliseconds;
+        this.currentWaitTimeMilliseconds = this.currentWaitTimeMilliseconds + this.increaseWaitTimeMilliseconds;
+        if ( this.currentWaitTimeMilliseconds > this.maximalWaitTimeMilliseconds ) {
+            this.currentWaitTimeMilliseconds = this.maximalWaitTimeMilliseconds;
         }
     }
 }
