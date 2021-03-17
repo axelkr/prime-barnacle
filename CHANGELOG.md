@@ -1,3 +1,6 @@
+# next Version
+- increasing wait longer for requests to finish / retry them.
+
 # v2.2.0
 - provide topic related requests
 

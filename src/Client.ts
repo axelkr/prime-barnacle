@@ -28,7 +28,7 @@ export class Client {
         this.publishedTopics = this.topicSubject;
         this.httpClient = httpClient;
 
-        const processAgain: WaitTime = new WaitTime(250, 100, 1000);
+        const processAgain: WaitTime = new WaitTime(100, 100, 1000);
         const waitForAsynchronuousRequest: WaitTime = new WaitTime(50, 50, 500);
         this.processor = new RequestProcessor(endpoint, processAgain, waitForAsynchronuousRequest);
 
