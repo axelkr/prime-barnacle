@@ -70,7 +70,8 @@ describe('NewObjectEventStream', () => {
 			eventType: 'eventType',
 			object: 'object',
 			objectType: 'objectType',
-			payload: serializedEmptyMap
+			payload: serializedEmptyMap,
+			isTransient: false
 		};
 	}
 

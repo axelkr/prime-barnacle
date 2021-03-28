@@ -1,6 +1,6 @@
 {
   "name": "prime-barnacle",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A client hiding network issues for connecting with an object event backend.",
   "keywords": [],
   "author": "Axel",
@@ -25,23 +25,24 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "@types/better-sqlite3": "^5.4.1",
     "@types/chai": "^4.2.15",
-    "@types/jasmine": "^3.6.7",
-    "@types/node": "^14.14.35",
+    "@types/jasmine": "^3.6.9",
+    "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "chai": "^4.3.4",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "jasmine": "^3.7.0",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-xml-reporter": "^1.2.1",
-    "rollup": "^2.42.3",
+    "rollup": "^2.43.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "choicest-barnacle": "^2.2.0",
+    "choicest-barnacle": "^2.3.0",
     "rxjs": "~6.6.6"
   }
 }
