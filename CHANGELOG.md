@@ -1,3 +1,6 @@
+# v2.3.1 
+- latest and greatest 
+
 # v2.3.0
 - increasing wait longer for requests to finish / retry them.
 - update to latest versions
