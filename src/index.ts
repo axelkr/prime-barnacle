@@ -1,3 +1,3 @@
 export { Client } from './Client';
-export { EventSourceFactory } from './EventSourceFactory';
+export { IEventSourceFactory } from './IEventSourceFactory';
 export { IHTTPClient } from './IHTTPClient';

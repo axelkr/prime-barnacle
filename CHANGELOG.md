@@ -1,3 +1,6 @@
+# v2.4.0
+- export only interface of event source factory, as one cannot expect this library to be run in a browser
+
 # v2.3.1 
 - latest and greatest 
 
