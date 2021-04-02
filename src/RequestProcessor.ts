@@ -9,11 +9,15 @@ export class RequestProcessor {
     private readonly processAgain: IWaitTime;
     private readonly waitForAsynchronuousRequest: IWaitTime;
 
-    constructor(endpoint: string, processAgain:IWaitTime, waitForAsynchronuousRequest: IWaitTime) {
+    constructor(endpoint: string, processAgain: IWaitTime, waitForAsynchronuousRequest: IWaitTime) {
         this.endpoint = endpoint;
         this.runningRequest = undefined;
         this.processAgain = processAgain;
         this.waitForAsynchronuousRequest = waitForAsynchronuousRequest;
+    }
+
+    public hasPendingRequests(): boolean {
+        return this.openRequests.length > 0;
     }
 
     public process(aRequest: IRequest): void {

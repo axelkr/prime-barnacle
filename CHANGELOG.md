@@ -1,3 +1,6 @@
+# v2.4.1
+- client can determine whether there is anything left to transfer to the backend
+
 # v2.4.0
 - export only interface of event source factory, as one cannot expect this library to be run in a browser
 

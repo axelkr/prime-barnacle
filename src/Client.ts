@@ -54,4 +54,8 @@ export class Client {
         const request = new GetAllTopicsRequest(this.httpClient, this.topicSubject);
         this.processor.process(request);
     }
+
+    public hasPendingRequests(): boolean {
+        return this.processor.hasPendingRequests();
+    }
 }
