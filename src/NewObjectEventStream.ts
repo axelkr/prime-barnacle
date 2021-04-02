@@ -27,6 +27,7 @@ export class NewObjectEventStream {
       this.events = this.eventSourceFactory.createEventSource(this.endpoint + '/newObjectEvents');
     } catch (error) {
       this.connectionFailed();
+      return;
     }
     this.events.onmessage = event => {
       const asObjectEvent = AbstractRequest.deserializeObjectEvent(JSON.parse(event.data));
