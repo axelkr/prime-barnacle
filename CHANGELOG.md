@@ -1,3 +1,6 @@
+# v2.4.3
+- hand client possibility to close any open connections
+
 # v2.4.2
 - fix: clear timeouts afterwards
 

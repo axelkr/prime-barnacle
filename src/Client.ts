@@ -59,4 +59,8 @@ export class Client {
     public hasPendingRequests(): boolean {
         return this.processor.hasPendingRequests();
     }
+
+    public disconnect(): void {
+        this.newObjectEventsStream.disconnect();
+    }
 }

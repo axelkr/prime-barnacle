@@ -52,4 +52,8 @@ export class NewObjectEventStream {
     }
     this.setupEventStreamForNewObjectEvents(this.objectEventSubject, this);
   }
+
+  public disconnect(): void {
+    this.events.close();
+  }
 }
