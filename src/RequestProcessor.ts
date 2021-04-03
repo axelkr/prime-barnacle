@@ -83,6 +83,7 @@ export class RequestProcessor {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const aRequestProcessor = this;
         this.timeOutId = setTimeout(() => {
+            clearTimeout(aRequestProcessor.timeOutId);
             aRequestProcessor.timeOutId = undefined;
             aRequestProcessor.processOpenRequests()
         },

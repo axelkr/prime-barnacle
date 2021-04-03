@@ -47,6 +47,7 @@ export class NewObjectEventStream {
 
   public reconnect(): void {
     if (this.timeOutId !== undefined) {
+      clearTimeout(this.timeOutId);
       this.timeOutId = undefined;
     }
     this.setupEventStreamForNewObjectEvents(this.objectEventSubject, this);

@@ -1,3 +1,6 @@
+# v2.4.2
+- fix: clear timeouts afterwards
+
 # v2.4.1
 - client can determine whether there is anything left to transfer to the backend
 
