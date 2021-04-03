@@ -14,8 +14,9 @@ import { GetAllTopicsRequest } from './GetAllTopicsRequest';
 
 export class Client {
     public readonly publishedObjectEvents: Observable<ObjectEvent>;
-    private readonly objectEventSubject: Subject<ObjectEvent>;
     public readonly publishedTopics: Observable<Topic>;
+
+    private readonly objectEventSubject: Subject<ObjectEvent>;
     private readonly topicSubject: Subject<Topic>;
     private readonly processor: RequestProcessor;
     private readonly newObjectEventsStream: NewObjectEventStream;
