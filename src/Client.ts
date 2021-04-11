@@ -11,6 +11,7 @@ import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { PublishTopicRequest } from './PublishTopicRequest';
 import { SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { GetAllTopicsRequest } from './GetAllTopicsRequest';
+import { DeleteTopicRequest } from './DeleteTopicRequest';
 
 export class Client {
     public readonly publishedObjectEvents: Observable<ObjectEvent>;
@@ -48,6 +49,11 @@ export class Client {
 
     public storeTopic(aTopic: Topic): void {
         const request = new PublishTopicRequest(aTopic, this.httpClient, this.topicSubject);
+        this.processor.process(request);
+    }
+
+    public removeTopic(aTopic: Topic): void {
+        const request = new DeleteTopicRequest(aTopic, this.httpClient, this.topicSubject);
         this.processor.process(request);
     }
 

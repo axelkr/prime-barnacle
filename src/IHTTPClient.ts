@@ -5,4 +5,6 @@ export interface IHTTPClient {
     postJson(url: string, json: any): void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     get(url: string): Observable<any>;
+
+    delete(url: string): void;
 }
