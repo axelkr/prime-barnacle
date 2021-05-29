@@ -9,7 +9,7 @@ import { WaitTime } from './WaitTime';
 
 import { PublishObjectEventRequest } from './PublishObjectEventRequest';
 import { PublishTopicRequest } from './PublishTopicRequest';
-import { SwitchToTopicRequest } from './SwitchToTopicRequest';
+import { ObjectType, SwitchToTopicRequest } from './SwitchToTopicRequest';
 import { GetAllTopicsRequest } from './GetAllTopicsRequest';
 import { DeleteTopicRequest } from './DeleteTopicRequest';
 
@@ -43,8 +43,11 @@ export class Client {
     }
 
     public switchToTopic(topic: Topic): void {
-        const request = new SwitchToTopicRequest(topic, this.httpClient, this.objectEventSubject);
-        this.processor.process(request);
+        const orderToFetchObjectTypes = [ObjectType.StateModel, ObjectType.Project, ObjectType.Context, ObjectType.KanbanCard, ObjectType.Task];
+        orderToFetchObjectTypes.forEach(fetchObjectType => {
+            const fetchObjectsForThatObjectType = new SwitchToTopicRequest(topic, this.httpClient, this.objectEventSubject, fetchObjectType);
+            this.processor.process(fetchObjectsForThatObjectType);
+        });
     }
 
     public storeTopic(aTopic: Topic): void {

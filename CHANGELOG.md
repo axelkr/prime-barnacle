@@ -1,3 +1,6 @@
+# 2.6.0
+- fetch parts of new topic separately so users of this client can process them separately
+
 # 2.5.0
 - provide possibility to delete a topic
 
