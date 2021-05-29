@@ -1,3 +1,6 @@
+# 2.6.1
+- paginate additionally
+
 # 2.6.0
 - fetch parts of new topic separately so users of this client can process them separately
 
