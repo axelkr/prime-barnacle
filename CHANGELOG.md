@@ -1,3 +1,5 @@
+# 2.6.2
+- switch to jest to remove typing issue with mocha/chai
 # 2.6.1
 - paginate additionally
 

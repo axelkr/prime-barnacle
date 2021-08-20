@@ -1,6 +1,3 @@
-'use strict';
-
-import { expect } from 'chai';
 import { EventSourceMock, EventSourceMockFactory, EventMock } from './EventSourceMock';
 import { NewObjectEventStream } from '../src/NewObjectEventStream';
 import { Subject } from 'rxjs';
@@ -34,7 +31,7 @@ describe('NewObjectEventStream', () => {
 		let reportedEvent: ObjectEvent = undefined;
 		reportTo.subscribe({ next: anObjectEvent => reportedEvent = anObjectEvent });
 		eventSourceMock.onmessage(createJSONMockEvent(backendEvent));
-		expect(reportedEvent.time).to.deep.equal(randomDateTime);
+		expect(reportedEvent.time).toEqual(randomDateTime);
 	});
 
 	it('requests new event source within 1 second in case current one fails', () => {
@@ -51,7 +48,7 @@ describe('NewObjectEventStream', () => {
 		const randomDateTime = new Date(2020, 11, 17, 2, 42, 33);
 		const backendEvent = setTimeObjectEventBackEnd(randomDateTime, generateJSONFromServer());
 		secondEventSource.onmessage(createJSONMockEvent(backendEvent));
-		expect(reportedEvent.time).to.deep.equal(randomDateTime);
+		expect(reportedEvent.time).toEqual(randomDateTime);
 	});
 
 	function createJSONMockEvent(objectEvent): EventMock {

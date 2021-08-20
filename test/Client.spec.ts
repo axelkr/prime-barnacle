@@ -1,6 +1,3 @@
-'use strict';
-
-import { expect } from 'chai';
 import { EventSourceMockFactory } from './EventSourceMock';
 import { Client } from '../src/Client';
 
@@ -10,6 +7,6 @@ describe('Client', () => {
 
 	it('should create an instance using its constructor', () => {
 		const example: Client = new Client(dummyEndpoint,eventSourceFactory,undefined);
-		expect(example, 'example should exist').to.exist; // tslint:disable-line:no-unused-expression
+		expect(example).toExist(); 
 	});
 });
