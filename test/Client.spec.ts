@@ -6,7 +6,7 @@ describe('Client', () => {
 	const eventSourceFactory = new EventSourceMockFactory();
 
 	it('should create an instance using its constructor', () => {
-		const example: Client = new Client(dummyEndpoint,eventSourceFactory,undefined);
-		expect(example).toExist(); 
+		const example: Client = new Client(dummyEndpoint, eventSourceFactory, undefined);
+		expect(example).toBeDefined();
 	});
 });

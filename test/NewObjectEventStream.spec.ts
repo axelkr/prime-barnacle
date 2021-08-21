@@ -18,7 +18,7 @@ describe('NewObjectEventStream', () => {
 
 	it('should create an instance using its constructor', () => {
 		const testObject = new NewObjectEventStream(reportTo, dummyEndpoint, eventSourceFactory);
-		expect(testObject, 'testObject should exist').to.exist; // tslint:disable-line:no-unused-expression
+		expect(testObject).toBeDefined();
 	});
 
 	it('forwards events to subject', () => {
@@ -51,7 +51,8 @@ describe('NewObjectEventStream', () => {
 		expect(reportedEvent.time).toEqual(randomDateTime);
 	});
 
-	function createJSONMockEvent(objectEvent): EventMock {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	function createJSONMockEvent(objectEvent: any): EventMock {
 		const result = new EventMock('message');
 		result.data = JSON.stringify(objectEvent);
 		return result;
