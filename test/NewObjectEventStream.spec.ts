@@ -8,12 +8,12 @@ describe('NewObjectEventStream', () => {
 	const eventSourceFactory = new EventSourceMockFactory();
 	const reportTo = new Subject<ObjectEvent>();
 
-	beforeEach(function () {
-		jasmine.clock().install();
+	beforeEach(() => {
+		jest.useFakeTimers();
 	});
 
-	afterEach(function () {
-		jasmine.clock().uninstall();
+	afterEach(() => {
+		jest.useRealTimers();
 	});
 
 	it('should create an instance using its constructor', () => {
@@ -44,7 +44,7 @@ describe('NewObjectEventStream', () => {
 		const secondEventSource = new EventSourceMock(dummyEndpoint);
 		eventSourceFactory.nextEventSourceToReturn = secondEventSource;
 		firstEventSource.onerror(createJSONMockEvent(new EventMock('error')));
-		jasmine.clock().tick(1000);
+		jest.runOnlyPendingTimers();
 		const randomDateTime = new Date(2020, 11, 17, 2, 42, 33);
 		const backendEvent = setTimeObjectEventBackEnd(randomDateTime, generateJSONFromServer());
 		secondEventSource.onmessage(createJSONMockEvent(backendEvent));
