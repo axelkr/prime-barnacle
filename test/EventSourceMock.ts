@@ -65,13 +65,13 @@ export class EventMock {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly currentTarget: any = undefined;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    readonly target:any = undefined;
-    readonly defaultPrevented:boolean = true;
-    readonly isTrusted:boolean = true;
-    readonly returnValue:boolean = true;
+    readonly target: any = undefined;
+    readonly defaultPrevented: boolean = true;
+    readonly isTrusted: boolean = true;
+    readonly returnValue: boolean = true;
     readonly eventPhase = 0; // EVENT.NONE
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    readonly srcElement:any = undefined;
+    readonly srcElement: any = undefined;
     readonly timeStamp = 23;
 
     readonly NONE = 0;
@@ -83,21 +83,23 @@ export class EventMock {
         this.type = type;
     }
 
-    public composedPath() : EventTarget[] {
+    public composedPath(): EventTarget[] {
         return [];
     }
 
-    public initEvent(type:string,aBool:boolean, anotherBool:boolean): void {
+    public initEvent(type: string, aBool: boolean, anotherBool: boolean): void {
         return;
     }
 
     public preventDefault(): void {
         return;
     }
+
     public stopImmediatePropagation(): void {
         return;
     }
+
     public stopPropagation(): void {
         return;
     }
-} 
+}
